@@ -2,7 +2,7 @@
 <div class="text-center py-5 ">
   <h1>Save your best movies</h1>
 </div>
-<%= cl_image_tag("bzh9lmhxus0sj8f8njmx", :width=>150, :height=>150, :crop=>"fill") %>
+<%= cl_image_tag("bzh9lmhxus0sj8f8njmx", height: 100, width:200, crop: :fill) %>
 <%# TITRE & BUTTON CREE LISTE %>
 <div class="container py-3">
   <div class="d-flex align-items-center justify-content-between">
@@ -16,8 +16,10 @@
         <div class="col-3 m-3 bg-white rounded p-3 shadow">
           <%= link_to list_path(list), class:"text-decoration-none" do %>
             <div class="text-center">
-              <%= cl_image_tag(list.photo.key, height: 300, crop: :fill) %>
-              <%= list.name %>
+              <%= cl_image_tag(list.photo.key, height: 100, width:200, crop: :fill, class: "rounded-top img-fluid") %>
+            </div>
+            <div class="text-center mt-2">
+              <strong style="color: black;"><%= list.name %></strong>
             </div>
           <% end %>
         </div>
