@@ -1,31 +1,35 @@
+<%# SUPRIMER LA LISTE %>
 <div class="text-end">
-  <%= link_to "Suprimer la liste", list_path(@list), class: "btn btn-cancel", data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this list?" } %>
+  <%= link_to "Delete list", list_path(@list), class: "btn", data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this list?" } %>
 </div>
+
+<%# TITRE & NOMBRE DE FILM %>
 <div class="text-center py-5">
   <h1><%= @list.name %></h1>
-  <span><%= pluralize(@list.movies.size, "film") %></span>
+  <span><%= pluralize(@list.movies.size, "movie") %></span>
 </div>
 
-
+<%# BUTTON ACCEUIL & AJOUTER UN FILM %>
 <div class="container py-3">
-  <div class="d-flex align-items-center justify-content-between ">
-    <%= link_to "Acceuil", root_path, class: "btn btn-primary" %>
-    <%= link_to "Ajouter un film", new_list_bookmark_path(@list), class: "btn btn-primary" %>
+  <div class="d-flex align-items-center justify-content-between">
+    <%= link_to "Home", root_path, class: "btn btn-primary" %>
+    <%= link_to "Add a movie", new_list_bookmark_path(@list), class: "btn btn-primary" %>
   </div>
 
-  <div class="row my-2">
+  <%# CARD FILM %>
+  <div class="row justify-content-md-center">
     <% @list.movies.each do |movie| %>
       <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
-      <div class="col-12 col-sm-6 mb-4 m-3 bg-white rounded p-3 shadow">
+      <div class="col-4 m-3 bg-white rounded p-3 shadow">
         <%= image_tag movie.poster_url, alt: movie.title, class: "rounded-top img-fluid" %>
-        <div class="p-3 rounded-bottom d-flex flex-column">
-          <strong><%= movie.title %> <span class="text-muted font-weight-normal">• <%= movie.rating %> <i class="fas fa-star star-yellow"></i></span></strong>
-          <small class="text-muted"><%= movie.overview %></small>
-          <div class="d-flex align-items-end justify-content-between pt-4">
-            <div>
-              <i class="fas fa-quote-left me-2"></i><small class="flex-grow-1"><%= bookmark.comment %></small>
-            </div>
-            <small class="text-right flex-shrink-0"><%= link_to "Supprimer", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimé #{movie.title} de la liste de #{@list.name} ?"}, class: 'text-danger' %></small>
+        <div class="p-3">
+          <strong><%= movie.title %> ◈ <%= movie.rating %> <i class="fas fa-star"></i></span></strong>
+          <p><%= movie.overview %></p>
+          <div class="d-flex justify-content-between align-items-end pt-3">
+            <p><%= bookmark.comment %></p>
+            <%= link_to "Delete", bookmark_path(bookmark),
+            data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove #{movie.title} from the #{@list.name} list?"},
+            class: 'text-danger' %>
           </div>
         </div>
       </div>

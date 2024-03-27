@@ -1,19 +1,26 @@
+<%# TITRE %>
 <div class="text-center py-5 ">
-  <h1>Sauvegardez vos meilleurs films</h1>
+  <h1>Save your best movies</h1>
 </div>
-
+<%= cl_image_tag("bzh9lmhxus0sj8f8njmx", :width=>150, :height=>150, :crop=>"fill") %>
+<%# TITRE & BUTTON CREE LISTE %>
 <div class="container py-3">
-  <div class="d-flex align-items-center justify-content-between ">
-    <h3>Ma liste</h3>
-    <%= link_to "Créé une liste de film", new_list_path, class: "btn btn-primary" %>
+  <div class="d-flex align-items-center justify-content-between">
+    <h3>My list</h3>
+    <%= link_to "Create a movie list", new_list_path, class: "btn btn-primary" %>
   </div>
-  <div class="">
-    <% @lists.each do |list| %>
-      <div class="d-flex align-items-center justify-content-between bg-white rounded p-3 shadow">
-        <%= link_to list_path(list), class:"text-decoration-none" do %>
-          <%= list.name %>
-        <% end %>
-      </div>
-    <% end %>
+
+  <%# CARD LISTE %>
+  <div class="row justify-content-md-center">
+      <% @lists.each do |list| %>
+        <div class="col-3 m-3 bg-white rounded p-3 shadow">
+          <%= link_to list_path(list), class:"text-decoration-none" do %>
+            <div class="text-center">
+              <%= cl_image_tag(list.photo.key, height: 300, crop: :fill) %>
+              <%= list.name %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
   </div>
 </div>
